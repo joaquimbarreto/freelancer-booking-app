@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2019-02-18 11:49:58
+  total_cost: 1
+  user_id: 1
+  freelancer_id: 1
+
+two:
+  date: 2019-02-18 11:49:58
+  total_cost: 1
+  user_id: 1
+  freelancer_id: 1
