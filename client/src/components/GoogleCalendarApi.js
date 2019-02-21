@@ -13,8 +13,6 @@ const DISCOVERY_DOCS = [
 // included, separated by spaces.
 const SCOPES = "https://www.googleapis.com/auth/calendar";
 
-// const gapi = "https://apis.google.com/js/api.js";
-
 export default class GoogleCalendarApi extends Component {
 	// On load, called to load the auth2 library and API client library.
 	handleClientLoad = () => {
@@ -45,8 +43,6 @@ export default class GoogleCalendarApi extends Component {
 					this.updateSigninStatus(
 						window.gapi.auth2.getAuthInstance().isSignedIn.get()
 					);
-					// authorizeButton.onclick = this.handleAuthClick;
-					// signoutButton.onclick = this.handleSignoutClick;
 				},
 				error => {
 					this.appendPre(JSON.stringify(error, null, 2));
@@ -58,8 +54,8 @@ export default class GoogleCalendarApi extends Component {
 	// appropriately. After a sign-in, the API is called.
 
 	updateSigninStatus = isSignedIn => {
-		var authorizeButton = document.getElementById("authorize_button");
-		var signoutButton = document.getElementById("signout_button");
+		const authorizeButton = document.getElementById("authorize_button");
+		const signoutButton = document.getElementById("signout_button");
 
 		if (isSignedIn) {
 			console.log("logged in");
@@ -97,11 +93,10 @@ export default class GoogleCalendarApi extends Component {
 		pre.appendChild(textContent);
 	};
 
-	/**
-	 * Print the summary and start datetime/date of the next ten events in
-	 * the authorized user's calendar. If no events are found an
-	 * appropriate message is printed.
-	 */
+	// Print the summary and start datetime/date of the next ten events in
+	// the authorized user's calendar. If no events are found an
+	// appropriate message is printed.
+
 	listUpcomingEvents = () => {
 		window.gapi.client.calendar.events
 			.list({
@@ -109,32 +104,20 @@ export default class GoogleCalendarApi extends Component {
 				timeMin: new Date().toISOString(),
 				showDeleted: false,
 				singleEvents: true,
-				maxResults: 10,
+				// maxResults: 10,
 				orderBy: "startTime"
 			})
 			.then(response => {
-				var events = response.result.items;
-				this.appendPre("Upcoming events:");
+				const events = response.result.items;
 
-				if (events.length > 0) {
-					for (var i = 0; i < events.length; i++) {
-						var event = events[i];
-						var when = event.start.dateTime;
-						if (!when) {
-							when = event.start.date;
-						}
-						this.appendPre(event.summary + " (" + when + ")");
-					}
-				} else {
-					this.appendPre("No upcoming events found.");
-				}
+				this.props.handleEvents(events);
 			});
 	};
 
 	render() {
 		return (
 			<div>
-				<p>Google Calendar API Quickstart</p>
+				<p>Google Calendar API</p>
 
 				{/* Add buttons to initiate auth sequence and sign out  */}
 				<button
