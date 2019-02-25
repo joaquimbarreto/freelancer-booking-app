@@ -3,7 +3,6 @@ import Calendar from "react-big-calendar";
 import moment from "moment";
 
 import GoogleCalendarApi from "../components/GoogleCalendarApi";
-// import NewCalendarEvent from "../components/NewCalendarEvent";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
