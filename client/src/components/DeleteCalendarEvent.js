@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 
 export default class NewCalenderEvent extends Component {
+	state = {
+		event: []
+	};
+
+	handleChange = event => {
+		console.log(event);
+	};
+
 	handleSubmit = event => {
 		event.preventDefault();
 		console.log(event);
@@ -9,18 +17,22 @@ export default class NewCalenderEvent extends Component {
 	render() {
 		return (
 			<div>
-				<p>Booking details:</p>
+				<p>Booking cancellation details:</p>
 				<form className="note-editor" onSubmit={this.handleSubmit}>
 					<label>
 						Date:
-						<input type="text" defaultValue={this.props.selectedSlot.start} />
+						<input type="text" defaultValue={this.props.selectedEvent.start} />
 					</label>
 					<label>
 						Working for:
 						<input type="text" name="title" defaultValue="User#" />
 					</label>
 					<div className="button-row">
-						<input className="button" type="submit" value="Confirm Booking" />
+						<input
+							className="button"
+							type="submit"
+							value="Confirm Cancellation"
+						/>
 					</div>
 				</form>
 			</div>
