@@ -3,6 +3,9 @@ import "./App.css";
 
 import MainCalendar from "./containers/MainCalendar";
 import usersAPI from "./usersAPI";
+import NavBar from "./components/NavBar";
+import SignInForm from "./components/SignInForm";
+import HomePage from "./components/HomePage";
 
 import { Route, Switch, withRouter } from "react-router-dom";
 
@@ -27,19 +30,28 @@ class App extends Component {
 				this.props.history.push("/signin");
 			} else {
 				this.signin(data.username, data.token);
-				this.props.history.push("/inventory");
+				this.props.history.push("/calendar");
 			}
 		});
 	}
 	render() {
+		const { signin, signout } = this;
+		const { username } = this.state;
 		return (
 			<div className="App">
+				<NavBar username={username} signout={signout} />
 				<Switch>
-					<Route exact path="/" component={MainCalendar} />
+					<Route exact path="/" component={HomePage} />
 					<Route
 						path="/signin"
 						component={routerProps => (
 							<SignInForm {...routerProps} signin={signin} />
+						)}
+					/>
+					<Route
+						path="/calendar"
+						component={routerProps => (
+							<MainCalendar {...routerProps} username={username} />
 						)}
 					/>
 				</Switch>

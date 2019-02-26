@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2019_02_18_141916) do
   create_table "freelancers", force: :cascade do |t|
     t.string "name"
     t.string "username"
-    t.string "password"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2019_02_18_141916) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "username"
-    t.string "password"
+    t.string "password_digest"
     t.string "company"
     t.string "email"
     t.string "telephone"

@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   resources :bookings
   resources :freelancers
   resources :users
-  # root
+  post 'signin', to: 'users#signin'
+  get 'validate', to: 'users#validate'
 end

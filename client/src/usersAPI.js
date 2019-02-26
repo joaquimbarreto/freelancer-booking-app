@@ -1,6 +1,6 @@
 class usersAPI {
 	static init() {
-		this.baseURL = "http://localhost:3000";
+		this.baseURL = "http://localhost:3001";
 		this.signinURL = this.baseURL + "/signin";
 	}
 
@@ -13,7 +13,7 @@ class usersAPI {
 	}
 
 	static validate() {
-		return this.get("http://localhost:3000/validate");
+		return this.get("http://localhost:3001/validate");
 	}
 
 	static get(url) {
@@ -24,7 +24,7 @@ class usersAPI {
 	}
 
 	static createUser(user) {
-		return fetch("http://localhost:3000/users", {
+		return fetch("http://localhost:3001/users", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(user)
@@ -32,6 +32,6 @@ class usersAPI {
 	}
 }
 
-API.init();
+usersAPI.init();
 
 export default usersAPI;
