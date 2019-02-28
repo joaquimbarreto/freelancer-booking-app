@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+    # protect_from_forgery with: :exception
+
     def issue_token(data)
         JWT.encode(data, secret)
     end

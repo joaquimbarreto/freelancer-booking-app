@@ -11,8 +11,8 @@ const localizer = Calendar.momentLocalizer(moment);
 class MainCalendar extends Component {
 	state = {
 		events: [],
-		selectedSlot: [],
-		selectedEvent: []
+		selectedSlot: null,
+		selectedEvent: null
 	};
 
 	handleEvents = events => {
@@ -49,12 +49,14 @@ class MainCalendar extends Component {
 				<p>
 					<strong>Click On a Day to Book</strong>
 				</p>
+				<p>Or select event to cancel</p>
 
 				<GoogleCalendarApi
 					handleEvents={this.handleEvents}
 					selectedSlot={this.state.selectedSlot}
 					newEvent={this.handleNewEvent}
 					selectedEvent={this.state.selectedEvent}
+					username={this.props.username}
 				/>
 				<Calendar
 					localizer={localizer}

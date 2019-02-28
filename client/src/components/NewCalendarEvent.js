@@ -17,7 +17,11 @@ export default class NewCalenderEvent extends Component {
 					</label>
 					<label>
 						Working for:
-						<input type="text" name="title" defaultValue="User#" />
+						<input
+							type="text"
+							name="title"
+							defaultValue={this.props.username}
+						/>
 					</label>
 					<div className="button-row">
 						<input className="button" type="submit" value="Confirm Booking" />

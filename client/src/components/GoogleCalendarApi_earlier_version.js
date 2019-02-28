@@ -16,11 +16,7 @@ const DISCOVERY_DOCS = [
 // included, separated by spaces.
 const SCOPES = "https://www.googleapis.com/auth/calendar";
 
-export default class GoogleCalendarApi extends Component {
-	state = {
-		newEvent: []
-	};
-
+export default class GoogleCalendarApi_ea extends Component {
 	// On load, called to load the auth2 library and API client library.
 	handleClientLoad = () => {
 		window.gapi.load("client:auth2", this.initClient);
@@ -33,7 +29,7 @@ export default class GoogleCalendarApi extends Component {
 		}, 1500);
 	};
 
-	// Initializes the API client library.
+	// Initializes the API client library and sets up sign-in state listeners.
 	initClient = () => {
 		window.gapi.client
 			.init({
@@ -67,7 +63,7 @@ export default class GoogleCalendarApi extends Component {
 
 	updateSigninStatus = isSignedIn => {
 		if (isSignedIn) {
-			this.listEvents();
+			this.listUpcomingEvents();
 		}
 	};
 
@@ -83,20 +79,6 @@ export default class GoogleCalendarApi extends Component {
 		window.gapi.auth2.getAuthInstance().signOut();
 	};
 
-	listEvents = () => {
-		window.gapi.client.calendar.events
-			.list({
-				calendarId: "primary",
-				timeMin: "2018-10-25T00:00:00Z",
-				showDeleted: false,
-				singleEvents: true,
-				orderBy: "startTime"
-			})
-			.then(response => {
-				const events = response.result.items;
-				this.props.handleEvents(events);
-			});
-	};
 	/**
 	 * Append a pre element to the body containing the given message
 	 * as its text node. Used to display the results of the API call.
@@ -109,20 +91,24 @@ export default class GoogleCalendarApi extends Component {
 		pre.appendChild(textContent);
 	};
 
-	newEvent = () => {
-		window.gapi.client.calendar.events.insert({
-			calendarId: "primary",
-			resource: this.state.newEvent
-		});
-		this.listEvents();
-	};
-
-	deleteEvent = () => {
-		window.gapi.client.calendar.events.delete({
-			calendarId: "primary",
-			eventId: ""
-		});
-		this.listEvents();
+	/**
+	 * Print the summary and start datetime/date of the next ten events in
+	 * the authorized user's calendar. If no events are found an
+	 * appropriate message is printed.
+	 */
+	listUpcomingEvents = () => {
+		window.gapi.client.calendar.events
+			.list({
+				calendarId: "primary",
+				timeMin: "2018-10-25T00:00:00Z",
+				showDeleted: false,
+				singleEvents: true,
+				orderBy: "startTime"
+			})
+			.then(response => {
+				var events = response.result.items;
+				this.props.handleEvents(events);
+			});
 	};
 
 	render() {
@@ -133,9 +119,9 @@ export default class GoogleCalendarApi extends Component {
 			newEvent,
 			username
 		} = this.props;
+		console.log(selectedSlot);
 		return (
 			<div>
-				<pre id="content" style={{ whiteSpace: "pre-wrap" }} />
 				{selectedSlot ? (
 					<NewCalendarEvent
 						selectedSlot={selectedSlot}
@@ -150,6 +136,7 @@ export default class GoogleCalendarApi extends Component {
 						username={username}
 					/>
 				) : null}
+				<pre id="content" style={{ whiteSpace: "pre-wrap" }} />
 			</div>
 		);
 	}
