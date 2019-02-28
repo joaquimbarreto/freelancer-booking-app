@@ -110,6 +110,7 @@ export default class GoogleCalendarApi extends Component {
 	};
 
 	newEvent = () => {
+		// debugger;
 		window.gapi.client.calendar.events.insert({
 			calendarId: "primary",
 			resource: this.state.newEvent
@@ -126,20 +127,14 @@ export default class GoogleCalendarApi extends Component {
 	};
 
 	render() {
-		const {
-			selectedSlot,
-			selectedEvent,
-			deleteEvent,
-			newEvent,
-			username
-		} = this.props;
+		const { selectedSlot, selectedEvent, deleteEvent, username } = this.props;
 		return (
 			<div>
 				<pre id="content" style={{ whiteSpace: "pre-wrap" }} />
 				{selectedSlot ? (
 					<NewCalendarEvent
 						selectedSlot={selectedSlot}
-						newEvent={newEvent}
+						newEvent={this.newEvent}
 						username={username}
 					/>
 				) : null}

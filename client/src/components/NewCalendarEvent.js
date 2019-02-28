@@ -4,6 +4,7 @@ export default class NewCalenderEvent extends Component {
 	handleSubmit = event => {
 		event.preventDefault();
 		console.log(event);
+		this.props.newEvent(event);
 	};
 
 	render() {
