@@ -20,14 +20,18 @@ class MainCalendar extends Component {
 			return {
 				start: event.start.dateTime,
 				end: event.end.dateTime,
-				title: event.summary
+				title: event.summary,
+				id: event.id
 			};
 		});
 		this.setState({ events: formattedEvents });
 	};
 
 	handleSelectSlot = event => {
-		this.setState({ selectedSlot: event });
+		this.setState({
+			selectedSlot: event,
+			selectedEvent: null
+		});
 	};
 
 	handleNewEvent = event => {
@@ -37,9 +41,9 @@ class MainCalendar extends Component {
 	};
 
 	handleSelectEvent = event => {
-		console.log(event);
 		this.setState({
-			selectedEvent: event
+			selectedEvent: event,
+			selectedSlot: null
 		});
 	};
 
@@ -63,7 +67,7 @@ class MainCalendar extends Component {
 					defaultDate={new Date()}
 					defaultView="month"
 					events={this.state.events}
-					style={{ height: "100vh" }}
+					style={{ height: "600px" }}
 					onSelectSlot={this.handleSelectSlot}
 					onSelectEvent={this.handleSelectEvent}
 					selectable={true}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NewCalendarEvent from "./NewCalendarEvent";
 import DeleteCalendarEvent from "./DeleteCalendarEvent";
+import moment from "moment";
 
 // Client ID and API key from the Developer Console
 const CLIENT_ID =
@@ -17,10 +18,6 @@ const DISCOVERY_DOCS = [
 const SCOPES = "https://www.googleapis.com/auth/calendar";
 
 export default class GoogleCalendarApi extends Component {
-	state = {
-		newEvent: []
-	};
-
 	// On load, called to load the auth2 library and API client library.
 	handleClientLoad = () => {
 		window.gapi.load("client:auth2", this.initClient);
@@ -87,7 +84,7 @@ export default class GoogleCalendarApi extends Component {
 		window.gapi.client.calendar.events
 			.list({
 				calendarId: "primary",
-				timeMin: "2018-10-25T00:00:00Z",
+				timeMin: "2019-02-01T00:00:00Z",
 				showDeleted: false,
 				singleEvents: true,
 				orderBy: "startTime"
@@ -109,25 +106,43 @@ export default class GoogleCalendarApi extends Component {
 		pre.appendChild(textContent);
 	};
 
-	newEvent = () => {
-		// debugger;
-		window.gapi.client.calendar.events.insert({
+	newEvent = (username, day) => {
+		const eventStart = moment(day)
+			.add(9, "hours")
+			.format();
+		const eventEnd = moment(day)
+			.add(17, "hours")
+			.format();
+		const booking = {
+			summary: " Working for " + username,
+			start: {
+				dateTime: eventStart,
+				timeZone: "Europe/London"
+			},
+			end: {
+				dateTime: eventEnd,
+				timeZone: "Europe/London"
+			}
+		};
+		const insertBooking = window.gapi.client.calendar.events.insert({
 			calendarId: "primary",
-			resource: this.state.newEvent
+			resource: booking
 		});
+		insertBooking.execute();
 		this.listEvents();
 	};
 
-	deleteEvent = () => {
-		window.gapi.client.calendar.events.delete({
+	deleteEvent = event => {
+		const deleteBooking = window.gapi.client.calendar.events.delete({
 			calendarId: "primary",
-			eventId: ""
+			eventId: event.id
 		});
+		deleteBooking.execute();
 		this.listEvents();
 	};
 
 	render() {
-		const { selectedSlot, selectedEvent, deleteEvent, username } = this.props;
+		const { selectedSlot, selectedEvent, username } = this.props;
 		return (
 			<div>
 				<pre id="content" style={{ whiteSpace: "pre-wrap" }} />
@@ -141,7 +156,7 @@ export default class GoogleCalendarApi extends Component {
 				{selectedEvent ? (
 					<DeleteCalendarEvent
 						selectedEvent={selectedEvent}
-						deleteEvent={deleteEvent}
+						deleteEvent={this.deleteEvent}
 						username={username}
 					/>
 				) : null}

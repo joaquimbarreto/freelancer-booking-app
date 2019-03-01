@@ -1,33 +1,18 @@
 import React, { Component } from "react";
 
-export default class NewCalenderEvent extends Component {
-	handleSubmit = event => {
-		event.preventDefault();
-		console.log(event);
-		this.props.newEvent(event);
+export default class NewCalendarEvent extends Component {
+	handleSubmit = () => {
+		this.props.newEvent(this.props.username, this.props.selectedSlot.start);
 	};
 
 	render() {
+		const { username, selectedSlot } = this.props;
 		return (
 			<div>
 				<p>Booking details:</p>
-				<form className="note-editor" onSubmit={this.handleSubmit}>
-					<label>
-						Date:
-						<input type="text" defaultValue={this.props.selectedSlot.start} />
-					</label>
-					<label>
-						Working for:
-						<input
-							type="text"
-							name="title"
-							defaultValue={this.props.username}
-						/>
-					</label>
-					<div className="button-row">
-						<input className="button" type="submit" value="Confirm Booking" />
-					</div>
-				</form>
+				<p>Date of booking: {selectedSlot.start.toString()}</p>
+				<div>Client: {username}</div>
+				<button onClick={this.handleClick}>Confirm Booking</button>
 			</div>
 		);
 	}

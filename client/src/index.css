@@ -6,9 +6,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: url("./images/image1.jpg") no-repeat center center;
+  background-size: cover;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.rbc-calendar {
+  width: 83%;
+  margin: 0 auto;
+  background-color: white;
+  height: 400px;
+}
+
+
