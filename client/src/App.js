@@ -5,6 +5,7 @@ import MainCalendar from "./containers/MainCalendar";
 import usersAPI from "./usersAPI";
 import NavBar from "./components/NavBar";
 import SignInForm from "./components/SignInForm";
+import SignUpForm from "./components/SignUpForm";
 import HomePage from "./components/HomePage";
 
 import { Route, Switch, withRouter } from "react-router-dom";
@@ -48,6 +49,11 @@ class App extends Component {
 							<SignInForm {...routerProps} signin={signin} />
 						)}
 					/>
+					<Route
+						path="/signup"
+						component={routerProps => <SignUpForm {...routerProps} />}
+					/>
+
 					<Route
 						path="/calendar"
 						component={routerProps => (
