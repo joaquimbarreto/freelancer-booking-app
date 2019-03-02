@@ -50,8 +50,6 @@ export default class GoogleCalendarApi extends Component {
 					this.updateSigninStatus(
 						window.gapi.auth2.getAuthInstance().isSignedIn.get()
 					);
-					// authorizeButton.onclick = this.handleAuthClick;
-					// signoutButton.onclick = this.handleSignoutClick;
 				},
 				error => {
 					this.appendPre(JSON.stringify(error, null, 2));
@@ -61,7 +59,6 @@ export default class GoogleCalendarApi extends Component {
 
 	// Called when the signed in status changes, to update the UI
 	// appropriately. After a sign-in, the API is called.
-
 	updateSigninStatus = isSignedIn => {
 		if (isSignedIn) {
 			this.listEvents();
@@ -69,13 +66,11 @@ export default class GoogleCalendarApi extends Component {
 	};
 
 	// Sign in the user upon button click.
-
 	handleAuthClick = event => {
 		window.gapi.auth2.getAuthInstance().signIn();
 	};
 
 	// Sign out the user upon button click.
-
 	handleSignoutClick = event => {
 		window.gapi.auth2.getAuthInstance().signOut();
 	};
@@ -94,19 +89,9 @@ export default class GoogleCalendarApi extends Component {
 				this.props.handleEvents(events);
 			});
 	};
-	/**
-	 * Append a pre element to the body containing the given message
-	 * as its text node. Used to display the results of the API call.
-	 *
-	 * @param {string} message Text to be placed in pre element.
-	 */
-	appendPre = message => {
-		var pre = document.getElementById("content");
-		var textContent = document.createTextNode(message + "\n");
-		pre.appendChild(textContent);
-	};
 
 	newEvent = (username, day) => {
+		console.log(day);
 		const eventStart = moment(day)
 			.add(9, "hours")
 			.format();

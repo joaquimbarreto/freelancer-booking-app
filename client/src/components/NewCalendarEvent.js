@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 export default class NewCalendarEvent extends Component {
-	handleSubmit = () => {
+	handleClick = () => {
 		this.props.newEvent(this.props.username, this.props.selectedSlot.start);
 	};
 
