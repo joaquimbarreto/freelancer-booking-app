@@ -71,15 +71,6 @@ export default class SignUpForm extends Component {
 				/>
 				<br />
 				<TextField
-					id="usernameInput"
-					label="Username"
-					value={username}
-					onChange={handleChange}
-					margin="normal"
-					name="username"
-				/>
-				<br />
-				<TextField
 					id="emailInput"
 					label="Email"
 					value={email}
@@ -114,7 +105,7 @@ export default class SignUpForm extends Component {
 					onChange={handleChange}
 					margin="normal"
 					name="password_confirmation"
-					type="password_confirmation"
+					type="password"
 				/>
 				<br />
 				<Button onClick={handleSubmit} variant="contained" color="primary">

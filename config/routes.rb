@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   resources :freelancers
   resources :users
   post 'signin', to: 'users#signin'
-  post 'signup', to: 'users#signup'
+  post 'signup', to: 'users#create'
   get 'validate', to: 'users#validate'
 end

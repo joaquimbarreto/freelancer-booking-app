@@ -31,7 +31,7 @@ class App extends Component {
 				this.props.history.push("/signin");
 			} else {
 				this.signin(data.username, data.token);
-				this.props.history.push("/calendar");
+				this.props.history.push("/signup");
 			}
 		});
 	}
@@ -44,16 +44,15 @@ class App extends Component {
 				<Switch>
 					<Route exact path="/" component={HomePage} />
 					<Route
+						path="/signup"
+						component={routerProps => <SignUpForm {...routerProps} />}
+					/>
+					<Route
 						path="/signin"
 						component={routerProps => (
 							<SignInForm {...routerProps} signin={signin} />
 						)}
 					/>
-					<Route
-						path="/signup"
-						component={routerProps => <SignUpForm {...routerProps} />}
-					/>
-
 					<Route
 						path="/calendar"
 						component={routerProps => (

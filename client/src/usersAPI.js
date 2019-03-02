@@ -2,7 +2,6 @@ class usersAPI {
 	static init() {
 		this.baseURL = "http://localhost:3001";
 		this.signinURL = this.baseURL + "/signin";
-		this.signupURL = this.baseURL + "/signup";
 	}
 
 	static signin(user) {
@@ -14,7 +13,8 @@ class usersAPI {
 	}
 
 	static signup(user) {
-		return fetch(this.signupURL, {
+		debugger;
+		return fetch("http://localhost:3001/users", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(user)
@@ -29,14 +29,6 @@ class usersAPI {
 		const token = localStorage.getItem("token");
 		return fetch(url, {
 			headers: { Authorization: token }
-		}).then(resp => resp.json());
-	}
-
-	static createUser(user) {
-		return fetch("http://localhost:3001/users", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(user)
 		}).then(resp => resp.json());
 	}
 }

@@ -1,21 +1,17 @@
 # FREELANCER BOOKING APP
 
-This app is a ruby on rails react redux progressive web app
+This is an app that allows users to book a time in a freelancer's Google Calendar.
+
+Its using the following technologies:
 
 - Ruby version: 2.5.1
 
-- System dependencies
+- Javascript & React
 
-- Configuration
+- Ruby on Rails 5.2 with ActiveAdmin
 
-- Database creation
+- JSON Web Tokens
 
-- Database initialization
+- PostgresQL database
 
-- How to run the test suite
-
-- Services (job queues, cache servers, search engines, etc.)
-
-- Deployment instructions
-
-- ...
+- Google Calendar API
