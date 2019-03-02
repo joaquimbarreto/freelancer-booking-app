@@ -9,11 +9,11 @@ export default class SignUpForm extends Component {
 	state = {
 		name: "",
 		username: "",
+		password: "",
+		password_confirmation: "",
 		company: "",
 		email: "",
-		telephone: "",
-		password: "",
-		password_confirmation: ""
+		telephone: ""
 	};
 
 	handleSubmit = () => {
