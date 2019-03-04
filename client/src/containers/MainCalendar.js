@@ -31,11 +31,15 @@ class MainCalendar extends Component {
 	};
 
 	handleSelectSlot = event => {
-		// if event exits {alert(Cannot book on this day)} else
-		this.setState({
-			selectedSlot: event,
-			selectedEvent: null
-		});
+		const selectedEventStart = moment(event.start).format();
+		if (this.state.events.start.includes(selectedEventStart)) {
+			return this.setState({
+				selectedSlot: event,
+				selectedEvent: null
+			});
+		} else {
+			alert("Cannot book on this day");
+		}
 	};
 
 	handleNewEvent = event => {
@@ -51,11 +55,15 @@ class MainCalendar extends Component {
 	};
 
 	handleSelectEvent = event => {
-		// if event is not of user {alert(Cannot edit this event)}
-		this.setState({
-			selectedEvent: event,
-			selectedSlot: null
-		});
+		const { user } = this.props;
+		if (this.state.events.title.includes(`Client: ${user.company}`)) {
+			return this.setState({
+				selectedEvent: event,
+				selectedSlot: null
+			});
+		} else {
+			alert(`Cannot edit this event`);
+		}
 	};
 
 	handleDeleteEvent = event => {
