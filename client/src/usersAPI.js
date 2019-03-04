@@ -1,10 +1,10 @@
 class usersAPI {
 	static init() {
 		this.baseURL = "http://localhost:3001";
-		this.signinURL = this.baseURL + "/signin";
+		this.signinURL = this.baseURL + "/login";
 	}
 
-	static signin(user) {
+	static login(user) {
 		return fetch(this.signinURL, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -12,8 +12,7 @@ class usersAPI {
 		}).then(resp => resp.json());
 	}
 
-	static signup(user) {
-		debugger;
+	static register(user) {
 		return fetch("http://localhost:3001/users", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },

@@ -10,7 +10,7 @@ export default class NewCalenderEvent extends Component {
 			<div>
 				<p>Booking cancellation details:</p>
 				<div>Date of booking: {this.props.selectedEvent.start}</div>
-				<div>Client :{this.props.username}</div>
+				<div>Client :{this.props.user.company}</div>
 				<button onClick={this.handleClick}>Cancel Booking</button>
 			</div>
 		);

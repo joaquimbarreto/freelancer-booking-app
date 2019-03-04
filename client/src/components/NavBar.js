@@ -5,6 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 const styles = {
 	root: {
@@ -20,7 +21,7 @@ const styles = {
 };
 
 function NavBar(props) {
-	const { classes, username, signout } = props;
+	const { classes, username, user, signout } = props;
 	return (
 		<div className={classes.root}>
 			<AppBar position="static">
@@ -28,19 +29,24 @@ function NavBar(props) {
 					<Typography variant="h6" color="inherit" className={classes.grow}>
 						Freelancer Booking App
 					</Typography>
-					{username ? `Welcome back, ${username}!` : null}
+					{username ? `Welcome back, ${user.company}!` : null}
 					{username ? (
 						<Button onClick={signout} color="inherit" href="/">
-							Logout
+							Sign out
 						</Button>
 					) : (
 						<div>
-							<Button color="inherit" href="/signup">
-								Sign Up
-							</Button>
-							<Button color="inherit" href="/signin">
-								Login
-							</Button>
+							<Link to={"/register"} style={{ textDecoration: "none" }}>
+								<Button variant="contained" color="inherit">
+									Register
+								</Button>
+							</Link>
+
+							<Link to={"/login"} style={{ textDecoration: "none" }}>
+								<Button variant="contained" color="inherit">
+									Login
+								</Button>
+							</Link>
 						</div>
 					)}
 				</Toolbar>

@@ -16,11 +16,14 @@ class MainCalendar extends Component {
 	};
 
 	handleEvents = events => {
+		const { user } = this.props;
 		const formattedEvents = events.map(event => {
 			return {
 				start: event.start.dateTime,
 				end: event.end.dateTime,
-				title: event.summary,
+				title: event.summary.includes(`Client: ${user.company}`)
+					? event.summary
+					: "Busy",
 				id: event.id
 			};
 		});
@@ -28,6 +31,7 @@ class MainCalendar extends Component {
 	};
 
 	handleSelectSlot = event => {
+		// if event exits {alert(Cannot book on this day)} else
 		this.setState({
 			selectedSlot: event,
 			selectedEvent: null
@@ -35,19 +39,34 @@ class MainCalendar extends Component {
 	};
 
 	handleNewEvent = event => {
+		const newBooking = {
+			start: event.start.dateTime,
+			end: event.end.dateTime,
+			title: event.summary
+		};
 		this.setState({
-			events: [...this.state.events, event]
+			events: [...this.state.events, newBooking],
+			selectedSlot: null
 		});
 	};
 
 	handleSelectEvent = event => {
+		// if event is not of user {alert(Cannot edit this event)}
 		this.setState({
 			selectedEvent: event,
 			selectedSlot: null
 		});
 	};
 
+	handleDeleteEvent = event => {
+		this.setState({
+			events: this.state.events.filter(events => events.start !== event.start),
+			selectedEvent: null
+		});
+	};
+
 	render() {
+		const { username, user } = this.props;
 		return (
 			<div className="App">
 				<p>
@@ -60,7 +79,9 @@ class MainCalendar extends Component {
 					selectedSlot={this.state.selectedSlot}
 					newEvent={this.handleNewEvent}
 					selectedEvent={this.state.selectedEvent}
-					username={this.props.username}
+					username={username}
+					user={user}
+					deleteEvent={this.handleDeleteEvent}
 				/>
 				<Calendar
 					localizer={localizer}

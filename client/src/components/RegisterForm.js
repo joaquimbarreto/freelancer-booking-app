@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 
 import usersAPI from "../usersAPI";
 
-export default class SignUpForm extends Component {
+export default class RegisterForm extends Component {
 	state = {
 		name: "",
 		username: "",
@@ -17,11 +17,11 @@ export default class SignUpForm extends Component {
 	};
 
 	handleSubmit = () => {
-		usersAPI.signup(this.state).then(data => {
+		usersAPI.register(this.state).then(data => {
 			if (data.error) {
 				alert(data.error);
 			} else {
-				this.props.history.push("/signin");
+				this.props.history.push("/login");
 			}
 		});
 	};

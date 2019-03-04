@@ -2,16 +2,16 @@ import React, { Component } from "react";
 
 export default class NewCalendarEvent extends Component {
 	handleClick = () => {
-		this.props.newEvent(this.props.username, this.props.selectedSlot.start);
+		this.props.newEvent(this.props.user, this.props.selectedSlot.start);
 	};
 
 	render() {
-		const { username, selectedSlot } = this.props;
+		const { selectedSlot, user } = this.props;
 		return (
 			<div>
 				<p>Booking details:</p>
 				<p>Date of booking: {selectedSlot.start.toString()}</p>
-				<div>Client: {username}</div>
+				<div>Client Company: {user.company}</div>
 				<button onClick={this.handleClick}>Confirm Booking</button>
 			</div>
 		);

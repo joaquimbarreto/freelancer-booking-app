@@ -5,18 +5,18 @@ import Button from "@material-ui/core/Button";
 
 import usersAPI from "../usersAPI";
 
-class SignInForm extends React.Component {
+class LoginForm extends React.Component {
 	state = {
 		username: "",
 		password: ""
 	};
 
 	handleSubmit = () => {
-		usersAPI.signin(this.state).then(data => {
+		usersAPI.login(this.state).then(data => {
 			if (data.error) {
 				alert(data.error);
 			} else {
-				this.props.signin(this.state.username, data.token);
+				this.props.login(this.state.username, data.token);
 				this.props.history.push("/calendar");
 			}
 		});
@@ -58,4 +58,4 @@ class SignInForm extends React.Component {
 	}
 }
 
-export default SignInForm;
+export default LoginForm;

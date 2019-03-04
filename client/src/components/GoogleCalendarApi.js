@@ -90,8 +90,7 @@ export default class GoogleCalendarApi extends Component {
 			});
 	};
 
-	newEvent = (username, day) => {
-		console.log(day);
+	newEvent = (user, day) => {
 		const eventStart = moment(day)
 			.add(9, "hours")
 			.format();
@@ -99,7 +98,7 @@ export default class GoogleCalendarApi extends Component {
 			.add(17, "hours")
 			.format();
 		const booking = {
-			summary: " Working for " + username,
+			summary: "Client: " + user.company,
 			start: {
 				dateTime: eventStart,
 				timeZone: "Europe/London"
@@ -114,7 +113,7 @@ export default class GoogleCalendarApi extends Component {
 			resource: booking
 		});
 		insertBooking.execute();
-		this.listEvents();
+		this.props.newEvent(booking);
 	};
 
 	deleteEvent = event => {
@@ -123,11 +122,11 @@ export default class GoogleCalendarApi extends Component {
 			eventId: event.id
 		});
 		deleteBooking.execute();
-		this.listEvents();
+		this.props.deleteEvent(event);
 	};
 
 	render() {
-		const { selectedSlot, selectedEvent, username } = this.props;
+		const { selectedSlot, selectedEvent, user } = this.props;
 		return (
 			<div>
 				<pre id="content" style={{ whiteSpace: "pre-wrap" }} />
@@ -135,14 +134,14 @@ export default class GoogleCalendarApi extends Component {
 					<NewCalendarEvent
 						selectedSlot={selectedSlot}
 						newEvent={this.newEvent}
-						username={username}
+						user={user}
 					/>
 				) : null}
 				{selectedEvent ? (
 					<DeleteCalendarEvent
 						selectedEvent={selectedEvent}
 						deleteEvent={this.deleteEvent}
-						username={username}
+						user={user}
 					/>
 				) : null}
 			</div>

@@ -4,18 +4,19 @@ import "./App.css";
 import MainCalendar from "./containers/MainCalendar";
 import usersAPI from "./usersAPI";
 import NavBar from "./components/NavBar";
-import SignInForm from "./components/SignInForm";
-import SignUpForm from "./components/SignUpForm";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
 import HomePage from "./components/HomePage";
 
 import { Route, Switch, withRouter } from "react-router-dom";
 
 class App extends Component {
 	state = {
-		username: ""
+		username: "",
+		user: ""
 	};
 
-	signin = (username, token) => {
+	login = (username, token) => {
 		this.setState({ username });
 		localStorage.setItem("token", token);
 	};
@@ -23,40 +24,51 @@ class App extends Component {
 	signout = () => {
 		this.setState({ username: "" });
 		localStorage.removeItem("token");
+		this.props.history.push("/");
 	};
 
 	componentDidMount() {
 		usersAPI.validate().then(data => {
 			if (data.error) {
-				this.props.history.push("/signin");
+				this.props.history.push("/");
 			} else {
-				this.signin(data.username, data.token);
-				this.props.history.push("/signup");
+				this.login(data.user.username, data.token);
+				this.userDetails(data.user);
+				this.props.history.push("/calendar");
 			}
 		});
 	}
+
+	userDetails = user => {
+		this.setState({ user });
+	};
+
 	render() {
-		const { signin, signout } = this;
-		const { username } = this.state;
+		const { login, signout, userDetails } = this;
+		const { username, user } = this.state;
 		return (
 			<div className="App">
-				<NavBar username={username} signout={signout} />
+				<NavBar username={username} user={user} signout={signout} />
 				<Switch>
 					<Route exact path="/" component={HomePage} />
 					<Route
-						path="/signup"
-						component={routerProps => <SignUpForm {...routerProps} />}
+						path="/register"
+						component={routerProps => <RegisterForm {...routerProps} />}
 					/>
 					<Route
-						path="/signin"
+						path="/login"
 						component={routerProps => (
-							<SignInForm {...routerProps} signin={signin} />
+							<LoginForm
+								{...routerProps}
+								login={login}
+								userDetails={userDetails}
+							/>
 						)}
 					/>
 					<Route
 						path="/calendar"
 						component={routerProps => (
-							<MainCalendar {...routerProps} username={username} />
+							<MainCalendar {...routerProps} username={username} user={user} />
 						)}
 					/>
 				</Switch>
