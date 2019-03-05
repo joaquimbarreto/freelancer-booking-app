@@ -1,41 +1,46 @@
 class BookingsController < ApiController
-
+    
     def index
-        @bookings = Booking.all        
+        @bookings = gapi
+        render json: @calendar.list_events(@calendar_id)
     end
-
-    def show
-        @booking = Booking.find(params[:id])
-    end
-
+    
     def new
-
+        
     end
-
+    
     def create
-        
+        gapi
+        byebug
+        event = Google::Apis::CalendarV3::Event.new({
+            start: Google::Apis::CalendarV3::EventDateTime.new(date_time: params[:booking][:start][:dateTime]),
+            end: Google::Apis::CalendarV3::EventDateTime.new(date_time: params[:booking][:end][:dateTime]),
+            summary: params[:booking][:summary]
+          })
+        @calendar.insert_event(@calendar_id, event)        
     end
-
-    def edit
-        
-    end
-
-    def update
-        
-    end
-
+  
     def destroy
-        
+        gapi
+        @calendar.delete_event(@calendar_id, params[:booking][:event_id])     
     end
 
     private
+    
+    def gapi
+        require 'google/apis/calendar_v3'
+        scopes =  ["https://www.googleapis.com/auth/calendar"]
+        credential_file = File.open("#{Rails.root}/client_secret.json")
 
-    def booking_params
-        params.require(:booking).permit(:freelancer_id, :user_id, :date, :total_cost)
-    end
+        authorizer = Google::Auth::ServiceAccountCredentials.make_creds(json_key_io: credential_file, scope: scopes)
+        @calendar = Google::Apis::CalendarV3::CalendarService.new
+        @calendar.authorization = authorizer
 
-    def find_booking
-        @booking = Booking.find(params[:id])
+        # List of calendars that the service account has access to
+        calendar_lists = @calendar.list_calendar_lists
+        # Example of adding an event to a calender
+        @calendar_id = calendar_lists.items.first.id #
     end
 
 end
+

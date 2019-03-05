@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Calendar from "react-big-calendar";
 import moment from "moment";
 
-import GoogleCalendarApi from "../components/GoogleCalendarApi";
+import GoogleCalendarEvents from "../components/GoogleCalendarEvents";
+import googleAPI from "../googleAPI";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
@@ -15,31 +16,39 @@ class MainCalendar extends Component {
 		selectedEvent: null
 	};
 
-	handleEvents = events => {
+	componentDidMount = () => {
 		const { user } = this.props;
-		const formattedEvents = events.map(event => {
-			return {
-				start: event.start.dateTime,
-				end: event.end.dateTime,
-				title: event.summary.includes(`Client: ${user.company}`)
-					? event.summary
-					: "Busy",
-				id: event.id
-			};
-		});
-		this.setState({ events: formattedEvents });
+		googleAPI
+			.bookings()
+			.then(data => {
+				return data.items.map(event => {
+					return {
+						start: event.start.dateTime,
+						end: event.end.dateTime,
+						title: event.summary.includes(`Client: ${user.company}`)
+							? event.summary
+							: "Busy",
+						id: event.id
+					};
+				});
+			})
+			.then(data => this.setState({ events: data }));
 	};
 
 	handleSelectSlot = event => {
-		const selectedEventStart = moment(event.start).format();
-		if (this.state.events.start.includes(selectedEventStart)) {
-			return this.setState({
-				selectedSlot: event,
-				selectedEvent: null
-			});
-		} else {
-			alert("Cannot book on this day");
-		}
+		return this.setState({
+			selectedSlot: event,
+			selectedEvent: null
+		});
+		// const selectedEventStart = moment(event.start).format();
+		// if (this.state.events.start.includes(selectedEventStart)) {
+		// 	return this.setState({
+		// 		selectedSlot: event,
+		// 		selectedEvent: null
+		// 	});
+		// } else {
+		// 	alert("Cannot book on this day");
+		// }
 	};
 
 	handleNewEvent = event => {
@@ -55,15 +64,19 @@ class MainCalendar extends Component {
 	};
 
 	handleSelectEvent = event => {
-		const { user } = this.props;
-		if (this.state.events.title.includes(`Client: ${user.company}`)) {
-			return this.setState({
-				selectedEvent: event,
-				selectedSlot: null
-			});
-		} else {
-			alert(`Cannot edit this event`);
-		}
+		return this.setState({
+			selectedEvent: event,
+			selectedSlot: null
+		});
+		// const { user } = this.props;
+		// if (this.state.events.title.includes(`Client: ${user.company}`)) {
+		// 	return this.setState({
+		// 		selectedEvent: event,
+		// 		selectedSlot: null
+		// 	});
+		// } else {
+		// 	alert(`Cannot edit this event`);
+		// }
 	};
 
 	handleDeleteEvent = event => {
@@ -74,20 +87,19 @@ class MainCalendar extends Component {
 	};
 
 	render() {
-		const { username, user } = this.props;
+		const { user } = this.props;
+
 		return (
 			<div className="App">
 				<p>
 					<strong>Click On a Day to Book</strong>
 				</p>
 				<p>Or select event to cancel</p>
-
-				<GoogleCalendarApi
+				<GoogleCalendarEvents
 					handleEvents={this.handleEvents}
 					selectedSlot={this.state.selectedSlot}
 					newEvent={this.handleNewEvent}
 					selectedEvent={this.state.selectedEvent}
-					username={username}
 					user={user}
 					deleteEvent={this.handleDeleteEvent}
 				/>

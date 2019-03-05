@@ -12,6 +12,10 @@ class usersAPI {
 		}).then(resp => resp.json());
 	}
 
+	static bookings() {
+		return fetch("http://localhost:3001/bookings").then(res => res.json());
+	}
+
 	static register(user) {
 		return fetch("http://localhost:3001/users", {
 			method: "POST",
