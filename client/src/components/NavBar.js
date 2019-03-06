@@ -26,7 +26,12 @@ function NavBar(props) {
 		<div className={classes.root}>
 			<AppBar position="static">
 				<Toolbar>
-					<Typography variant="h6" color="inherit" className={classes.grow}>
+					<Typography
+						align="left"
+						variant="h6"
+						color="inherit"
+						className={classes.grow}
+					>
 						Freelancer Booking App
 					</Typography>
 					{user ? `Welcome back, ${user.name}!` : null}
