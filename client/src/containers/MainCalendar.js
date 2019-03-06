@@ -37,6 +37,7 @@ class MainCalendar extends Component {
 	};
 
 	handleSelectSlot = event => {
+		console.log(event);
 		return this.setState({
 			selectedSlot: event,
 			selectedEvent: null
@@ -56,19 +57,14 @@ class MainCalendar extends Component {
 	};
 
 	handleSelectEvent = event => {
-		return this.setState({
-			selectedEvent: event,
-			selectedSlot: null
-		});
-		// const { user } = this.props;
-		// if (this.state.events.title.includes(`Client: ${user.company}`)) {
-		// 	return this.setState({
-		// 		selectedEvent: event,
-		// 		selectedSlot: null
-		// 	});
-		// } else {
-		// 	alert(`Cannot edit this event`);
-		// }
+		if (event.title === "Busy") {
+			alert(`Cannot edit this event`);
+		} else {
+			return this.setState({
+				selectedEvent: event,
+				selectedSlot: null
+			});
+		}
 	};
 
 	handleDeleteEvent = event => {
