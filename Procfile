@@ -1,2 +1,3 @@
-web: bundle exec rails s
+web: cd client && PORT=3000 npm start
+api: PORT=3001 && bundle exec rails s
 release: bin/rake db:migrate
