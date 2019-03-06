@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import HomePage from "./components/HomePage";
+import NotFound from "./components/NotFound";
 
 import { Route, Switch, withRouter } from "react-router-dom";
 
@@ -71,6 +72,7 @@ class App extends Component {
 							<MainCalendar {...routerProps} username={username} user={user} />
 						)}
 					/>
+					<Route component={NotFound} />
 				</Switch>
 			</div>
 		);
