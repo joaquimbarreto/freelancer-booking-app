@@ -37,11 +37,18 @@ class MainCalendar extends Component {
 	};
 
 	handleSelectSlot = event => {
-		console.log(event);
-		return this.setState({
-			selectedSlot: event,
-			selectedEvent: null
-		});
+		const eventsDay = this.state.events.map(event => event.start.slice(0, 10));
+		const selectedSlotDay = moment(event.start)
+			.format()
+			.slice(0, 10);
+		if (eventsDay.includes(selectedSlotDay)) {
+			alert("Freelancer busy on this day. Please select different day.");
+		} else {
+			return this.setState({
+				selectedSlot: event,
+				selectedEvent: null
+			});
+		}
 	};
 
 	handleNewEvent = event => {
@@ -76,7 +83,7 @@ class MainCalendar extends Component {
 
 	render() {
 		const { user } = this.props;
-
+		const { selectedSlot, selectedEvent, events } = this.state;
 		return (
 			<div className="App">
 				<p>
@@ -85,9 +92,9 @@ class MainCalendar extends Component {
 				<p>Or select event to cancel</p>
 				<GoogleCalendarEvents
 					handleEvents={this.handleEvents}
-					selectedSlot={this.state.selectedSlot}
+					selectedSlot={selectedSlot}
 					newEvent={this.handleNewEvent}
-					selectedEvent={this.state.selectedEvent}
+					selectedEvent={selectedEvent}
 					user={user}
 					deleteEvent={this.handleDeleteEvent}
 				/>
@@ -95,7 +102,7 @@ class MainCalendar extends Component {
 					localizer={localizer}
 					defaultDate={new Date()}
 					defaultView="month"
-					events={this.state.events}
+					events={events}
 					style={{ height: "600px" }}
 					onSelectSlot={this.handleSelectSlot}
 					onSelectEvent={this.handleSelectEvent}

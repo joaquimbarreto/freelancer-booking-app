@@ -64,10 +64,13 @@ class NewCalendarEvent extends Component {
 				>
 					<div style={getModalStyle()} className={classes.paper}>
 						<Typography variant="h6" id="modal-title">
-							Booking details
+							Booking Details
 						</Typography>
 						<Typography variant="subtitle1" id="simple-modal-description">
 							Client Company: {user.company}
+						</Typography>
+						<Typography variant="subtitle1" id="simple-modal-description">
+							Booked by: {user.name}
 						</Typography>
 						<Typography variant="subtitle2" id="simple-modal-description">
 							Date of booking: {selectedSlot.start.toString()}

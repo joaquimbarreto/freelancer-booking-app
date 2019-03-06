@@ -65,11 +65,15 @@ class DeleteCalendarEvent extends Component {
 				>
 					<div style={getModalStyle()} className={classes.paper}>
 						<Typography variant="h6" id="modal-title">
-							Booking cancellation details
+							Booking Cancellation Details
 						</Typography>
 						<Typography variant="subtitle1" id="simple-modal-description">
 							Client Company: {user.company}
 						</Typography>
+						<Typography variant="subtitle1" id="simple-modal-description">
+							Cancelled by: {user.name}
+						</Typography>
+
 						<Typography variant="subtitle2" id="simple-modal-description">
 							Date of booking: {selectedEvent.start}
 						</Typography>
