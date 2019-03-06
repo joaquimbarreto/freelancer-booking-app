@@ -11,7 +11,6 @@ class BookingsController < ApiController
     
     def create
         gapi
-        byebug
         event = Google::Apis::CalendarV3::Event.new({
             start: Google::Apis::CalendarV3::EventDateTime.new(date_time: params[:booking][:start][:dateTime]),
             end: Google::Apis::CalendarV3::EventDateTime.new(date_time: params[:booking][:end][:dateTime]),
