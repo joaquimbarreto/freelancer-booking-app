@@ -16,7 +16,7 @@ class LoginForm extends React.Component {
 			if (data.error) {
 				alert(data.error);
 			} else {
-				this.props.login(this.state.username, data.token);
+				this.props.login(data.user, data.token);
 				this.props.history.push("/calendar");
 			}
 		});

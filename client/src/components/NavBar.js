@@ -21,7 +21,7 @@ const styles = {
 };
 
 function NavBar(props) {
-	const { classes, username, user, signout } = props;
+	const { classes, user, signout } = props;
 	return (
 		<div className={classes.root}>
 			<AppBar position="static">
@@ -29,8 +29,8 @@ function NavBar(props) {
 					<Typography variant="h6" color="inherit" className={classes.grow}>
 						Freelancer Booking App
 					</Typography>
-					{username ? `Welcome back, ${user.company}!` : null}
-					{username ? (
+					{user ? `Welcome back, ${user.name}!` : null}
+					{user ? (
 						<Button onClick={signout} color="inherit" href="/">
 							Sign out
 						</Button>

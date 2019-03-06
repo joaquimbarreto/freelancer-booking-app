@@ -13,12 +13,11 @@ import { Route, Switch, withRouter } from "react-router-dom";
 
 class App extends Component {
 	state = {
-		username: "",
-		user: ""
+		user: null
 	};
 
-	login = (username, token) => {
-		this.setState({ username });
+	login = (user, token) => {
+		this.setState({ user });
 		localStorage.setItem("token", token);
 	};
 
@@ -33,23 +32,18 @@ class App extends Component {
 			if (data.error) {
 				this.props.history.push("/");
 			} else {
-				this.login(data.user.username, data.token);
-				this.userDetails(data.user);
+				this.login(data.user, data.token);
 				this.props.history.push("/calendar");
 			}
 		});
 	}
 
-	userDetails = user => {
-		this.setState({ user });
-	};
-
 	render() {
 		const { login, signout, userDetails } = this;
-		const { username, user } = this.state;
+		const { user } = this.state;
 		return (
 			<div className="App">
-				<NavBar username={username} user={user} signout={signout} />
+				<NavBar user={user} signout={signout} />
 				<Switch>
 					<Route exact path="/" component={HomePage} />
 					<Route
@@ -69,7 +63,7 @@ class App extends Component {
 					<Route
 						path="/calendar"
 						component={routerProps => (
-							<MainCalendar {...routerProps} username={username} user={user} />
+							<MainCalendar {...routerProps} user={user} />
 						)}
 					/>
 					<Route component={NotFound} />

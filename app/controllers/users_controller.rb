@@ -42,9 +42,9 @@ class UsersController < ApiController
     def login
         @user = User.find_by(username: params[:username])
         if @user && @user.authenticate(params[:password])
-          render json: {token: issue_token({id: @user.id})}
+            render json: {user: @user, token: issue_token({id: @user.id})}
         else
-          render json: {error: "Username/password combination invalid."}, status: 404
+            render json: {error: "Username/password combination invalid."}, status: 404
         end
     end
 

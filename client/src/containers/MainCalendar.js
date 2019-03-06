@@ -18,21 +18,22 @@ class MainCalendar extends Component {
 
 	componentDidMount = () => {
 		const { user } = this.props;
-		googleAPI
-			.bookings()
-			.then(data => {
-				return data.items.map(event => {
-					return {
-						start: event.start.dateTime,
-						end: event.end.dateTime,
-						title: event.summary.includes(`Client: ${user.company}`)
-							? event.summary
-							: "Busy",
-						id: event.id
-					};
-				});
-			})
-			.then(data => this.setState({ events: data }));
+		user &&
+			googleAPI
+				.bookings()
+				.then(data => {
+					return data.items.map(event => {
+						return {
+							start: event.start.dateTime,
+							end: event.end.dateTime,
+							title: event.summary.includes(`Client: ${user.company}`)
+								? event.summary
+								: "Busy",
+							id: event.id
+						};
+					});
+				})
+				.then(data => this.setState({ events: data }));
 	};
 
 	handleSelectSlot = event => {
@@ -40,15 +41,6 @@ class MainCalendar extends Component {
 			selectedSlot: event,
 			selectedEvent: null
 		});
-		// const selectedEventStart = moment(event.start).format();
-		// if (this.state.events.start.includes(selectedEventStart)) {
-		// 	return this.setState({
-		// 		selectedSlot: event,
-		// 		selectedEvent: null
-		// 	});
-		// } else {
-		// 	alert("Cannot book on this day");
-		// }
 	};
 
 	handleNewEvent = event => {
