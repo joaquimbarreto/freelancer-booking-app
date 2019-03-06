@@ -1,13 +1,15 @@
 class googleAPI {
 	static init() {
-		this.baseURL = "http://localhost:3001";
+		process.env.REACT_APP_STAGE === "dev"
+			? (this.base_URL = "http://localhost:3001")
+			: (this.base_URL = "https://www.freelancerbooking.app");
 	}
 	static bookings() {
-		return fetch("http://localhost:3001/bookings").then(res => res.json());
+		return fetch(this.base_URL + "/bookings").then(res => res.json());
 	}
 
 	static deleteBooking(booking) {
-		return fetch("http://localhost:3001/delete_booking", {
+		return fetch(this.base_URL + "/delete_booking", {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json"
@@ -17,7 +19,7 @@ class googleAPI {
 	}
 
 	static createBooking(booking) {
-		return fetch("http://localhost:3001/create_booking", {
+		return fetch(this.base_URL + "/create_booking", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"

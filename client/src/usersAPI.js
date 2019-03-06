@@ -1,11 +1,12 @@
 class usersAPI {
 	static init() {
-		this.baseURL = "http://localhost:3001";
-		this.signinURL = this.baseURL + "/login";
+		process.env.REACT_APP_STAGE === "dev"
+			? (this.base_URL = "http://localhost:3001")
+			: (this.base_URL = "https://www.freelancerbooking.app");
 	}
 
 	static login(user) {
-		return fetch(this.signinURL, {
+		return fetch(this.baseURL + "/login", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(user)
@@ -13,11 +14,11 @@ class usersAPI {
 	}
 
 	static bookings() {
-		return fetch("http://localhost:3001/bookings").then(res => res.json());
+		return fetch(this.baseURL + "/bookings").then(res => res.json());
 	}
 
 	static register(user) {
-		return fetch("http://localhost:3001/users", {
+		return fetch(this.baseURL + "/users", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(user)
@@ -25,7 +26,7 @@ class usersAPI {
 	}
 
 	static validate() {
-		return this.get("http://localhost:3001/validate");
+		return this.get(this.baseURL + "/validate");
 	}
 
 	static get(url) {
