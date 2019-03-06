@@ -14,11 +14,11 @@ class usersAPI {
 	}
 
 	static bookings() {
-		return fetch(this.baseURL + "/bookings").then(res => res.json());
+		return fetch(this.base_URL + "/bookings").then(res => res.json());
 	}
 
 	static register(user) {
-		return fetch(this.baseURL + "/users", {
+		return fetch(this.base_URL + "/users", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(user)
@@ -26,7 +26,7 @@ class usersAPI {
 	}
 
 	static validate() {
-		return this.get(this.baseURL + "/validate");
+		return this.get(this.base_URL + "/validate");
 	}
 
 	static get(url) {
