@@ -1,11 +1,22 @@
 import React, { Component } from "react";
 
 import TextField from "@material-ui/core/TextField";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
 import usersAPI from "../usersAPI";
 
-export default class RegisterForm extends Component {
+const styles = {
+	root: {
+		background: "white"
+	},
+	input: {
+		color: "black"
+	}
+};
+
+class RegisterForm extends Component {
 	state = {
 		name: "",
 		username: "",
@@ -40,7 +51,7 @@ export default class RegisterForm extends Component {
 			password_confirmation
 		} = this.state;
 		const { handleChange, handleSubmit } = this;
-
+		const { classes } = this.props;
 		return (
 			<div>
 				<TextField
@@ -50,6 +61,10 @@ export default class RegisterForm extends Component {
 					onChange={handleChange}
 					margin="normal"
 					name="name"
+					className={classes.root}
+					InputProps={{
+						className: classes.input
+					}}
 				/>
 				<br />
 				<TextField
@@ -59,6 +74,10 @@ export default class RegisterForm extends Component {
 					onChange={handleChange}
 					margin="normal"
 					name="username"
+					className={classes.root}
+					InputProps={{
+						className: classes.input
+					}}
 				/>
 				<br />
 				<TextField
@@ -68,6 +87,10 @@ export default class RegisterForm extends Component {
 					onChange={handleChange}
 					margin="normal"
 					name="company"
+					className={classes.root}
+					InputProps={{
+						className: classes.input
+					}}
 				/>
 				<br />
 				<TextField
@@ -77,6 +100,10 @@ export default class RegisterForm extends Component {
 					onChange={handleChange}
 					margin="normal"
 					name="email"
+					className={classes.root}
+					InputProps={{
+						className: classes.input
+					}}
 				/>
 				<br />
 				<TextField
@@ -86,6 +113,10 @@ export default class RegisterForm extends Component {
 					onChange={handleChange}
 					margin="normal"
 					name="telephone"
+					className={classes.root}
+					InputProps={{
+						className: classes.input
+					}}
 				/>
 				<br />
 				<TextField
@@ -96,16 +127,24 @@ export default class RegisterForm extends Component {
 					margin="normal"
 					name="password"
 					type="password"
+					className={classes.root}
+					InputProps={{
+						className: classes.input
+					}}
 				/>
 				<br />
 				<TextField
 					id="passwordConfirmationInput"
-					label="Password_confirmation"
+					label="Password Confirmation"
 					value={password_confirmation}
 					onChange={handleChange}
 					margin="normal"
 					name="password_confirmation"
 					type="password"
+					className={classes.root}
+					InputProps={{
+						className: classes.input
+					}}
 				/>
 				<br />
 				<Button onClick={handleSubmit} variant="contained" color="primary">
@@ -115,3 +154,9 @@ export default class RegisterForm extends Component {
 		);
 	}
 }
+
+RegisterForm.propTypes = {
+	classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(RegisterForm);

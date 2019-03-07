@@ -1,9 +1,20 @@
 import React from "react";
 
 import TextField from "@material-ui/core/TextField";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
 import usersAPI from "../usersAPI";
+
+const styles = {
+	root: {
+		background: "white"
+	},
+	input: {
+		color: "black"
+	}
+};
 
 class LoginForm extends React.Component {
 	state = {
@@ -28,7 +39,7 @@ class LoginForm extends React.Component {
 	render() {
 		const { username, password } = this.state;
 		const { handleChange, handleSubmit } = this;
-
+		const { classes } = this.props;
 		return (
 			<div>
 				<TextField
@@ -38,6 +49,10 @@ class LoginForm extends React.Component {
 					onChange={handleChange}
 					margin="normal"
 					name="username"
+					className={classes.root}
+					InputProps={{
+						className: classes.input
+					}}
 				/>
 				<br />
 				<TextField
@@ -48,6 +63,10 @@ class LoginForm extends React.Component {
 					margin="normal"
 					name="password"
 					type="password"
+					className={classes.root}
+					InputProps={{
+						className: classes.input
+					}}
 				/>
 				<br />
 				<Button onClick={handleSubmit} variant="contained" color="primary">
@@ -58,4 +77,8 @@ class LoginForm extends React.Component {
 	}
 }
 
-export default LoginForm;
+LoginForm.propTypes = {
+	classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(LoginForm);
