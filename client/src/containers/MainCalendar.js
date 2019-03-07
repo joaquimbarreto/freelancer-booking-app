@@ -102,6 +102,7 @@ class MainCalendar extends Component {
 					localizer={localizer}
 					defaultDate={new Date()}
 					defaultView="month"
+					views={["month", "agenda"]}
 					events={events}
 					style={{ height: "600px" }}
 					onSelectSlot={this.handleSelectSlot}
