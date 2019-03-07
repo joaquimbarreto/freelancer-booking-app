@@ -16,7 +16,8 @@ class BookingsController < ApiController
             end: Google::Apis::CalendarV3::EventDateTime.new(date_time: params[:booking][:end][:dateTime]),
             summary: params[:booking][:summary]
           })
-        @calendar.insert_event(@calendar_id, event)        
+        googleRes = @calendar.insert_event(@calendar_id, event)
+        render json: googleRes
     end
   
     def destroy

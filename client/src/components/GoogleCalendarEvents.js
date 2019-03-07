@@ -21,8 +21,7 @@ export default class GoogleCalendarEvents extends Component {
 				dateTime: eventEnd
 			}
 		};
-		googleAPI.createBooking(booking);
-		this.props.newEvent(booking);
+		googleAPI.createBooking(booking).then(data => this.props.newEvent(data));
 	};
 
 	deleteEvent = event => {

@@ -55,7 +55,8 @@ class MainCalendar extends Component {
 		const newBooking = {
 			start: event.start.dateTime,
 			end: event.end.dateTime,
-			title: event.summary
+			title: event.summary,
+			id: event.id
 		};
 		this.setState({
 			events: [...this.state.events, newBooking],
