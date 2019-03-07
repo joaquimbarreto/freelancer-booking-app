@@ -67,14 +67,18 @@ class NewCalendarEvent extends Component {
 							Booking Details
 						</Typography>
 						<Typography variant="subtitle1" id="simple-modal-description">
-							Client Company: {user.company}
+							Company: {user.company}
 						</Typography>
 						<Typography variant="subtitle1" id="simple-modal-description">
 							Booked by: {user.name}
 						</Typography>
 						<Typography variant="subtitle2" id="simple-modal-description">
-							Date of booking: {selectedSlot.start.toString()}
+							Date: {selectedSlot.start.toString().slice(0, 10)}
 						</Typography>
+						<Typography variant="subtitle2" id="simple-modal-description">
+							Time: 9am - 5pm
+						</Typography>
+
 						<Button
 							onClick={this.handleClick}
 							variant="contained"

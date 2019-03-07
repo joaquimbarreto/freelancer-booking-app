@@ -3,8 +3,7 @@ import React from "react";
 const HomePage = () => (
 	<div>
 		<h1>Software Developer Freelancer</h1>
-		<h2>Book a day and time to hire the services of a software developer.</h2>
-		<p>Please click Login above to start booking!</p>
+		<p>Login to book a day to hire the services of a software developer.</p>
 	</div>
 );
 export default HomePage;

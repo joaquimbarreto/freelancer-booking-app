@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import "./App.css";
 
 import MainCalendar from "./containers/MainCalendar";
+
 import usersAPI from "./usersAPI";
 import NavBar from "./components/NavBar";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
+import User from "./components/User";
+
 import HomePage from "./components/HomePage";
 import NotFound from "./components/NotFound";
 
@@ -39,7 +42,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { login, signout, userDetails } = this;
+		const { login, signout } = this;
 		const { user } = this.state;
 		return (
 			<div className="App">
@@ -53,11 +56,7 @@ class App extends Component {
 					<Route
 						path="/login"
 						component={routerProps => (
-							<LoginForm
-								{...routerProps}
-								login={login}
-								userDetails={userDetails}
-							/>
+							<LoginForm {...routerProps} login={login} />
 						)}
 					/>
 					<Route
@@ -66,6 +65,11 @@ class App extends Component {
 							<MainCalendar {...routerProps} user={user} />
 						)}
 					/>
+					<Route
+						path="/user"
+						component={routerProps => <User {...routerProps} user={user} />}
+					/>
+
 					<Route component={NotFound} />
 				</Switch>
 			</div>

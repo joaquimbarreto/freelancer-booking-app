@@ -36,7 +36,6 @@ export default class GoogleCalendarEvents extends Component {
 		const { selectedSlot, selectedEvent, user } = this.props;
 		return (
 			<div>
-				<pre id="content" style={{ whiteSpace: "pre-wrap" }} />
 				{selectedSlot ? (
 					<NewCalendarEvent
 						selectedSlot={selectedSlot}

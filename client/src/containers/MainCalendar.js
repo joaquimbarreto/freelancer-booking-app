@@ -89,7 +89,7 @@ class MainCalendar extends Component {
 				<p>
 					<strong>Click On a Day to Book</strong>
 				</p>
-				<p>Or select event to cancel</p>
+				<p>Or select a {user && user.company} booking to cancel</p>
 				<GoogleCalendarEvents
 					handleEvents={this.handleEvents}
 					selectedSlot={selectedSlot}

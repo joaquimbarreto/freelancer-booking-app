@@ -68,14 +68,13 @@ class DeleteCalendarEvent extends Component {
 							Booking Cancellation Details
 						</Typography>
 						<Typography variant="subtitle1" id="simple-modal-description">
-							Client Company: {user.company}
+							Company: {user.company}
 						</Typography>
 						<Typography variant="subtitle1" id="simple-modal-description">
 							Cancelled by: {user.name}
 						</Typography>
-
-						<Typography variant="subtitle2" id="simple-modal-description">
-							Date of booking: {selectedEvent.start}
+						<Typography variant="subtitle1" id="simple-modal-description">
+							Date of booking: {selectedEvent.start.slice(0, 10)}
 						</Typography>
 						<Button
 							onClick={this.handleClick}
